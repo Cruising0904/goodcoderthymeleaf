@@ -19,10 +19,13 @@ public class BoardController {
     
     @GetMapping("/list")
     public String list(Model model){
-        System.out.println("list 들어옴");
         List<Board> boards = boardRepository.findAll();
-        System.out.println(boards);
         model.addAttribute("boards", boards);
+        System.out.println(boards);
         return "board/list";
+    }
+    @GetMapping("/test")
+    public String test(){
+        return "test";
     }
 }
