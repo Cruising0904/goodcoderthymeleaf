@@ -1,7 +1,8 @@
-package com.goodcoder.model;
+package com.goodcoder.controller;
 
 import java.util.List;
 
+import com.goodcoder.model.Board;
 import com.goodcoder.repository.BoardRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
