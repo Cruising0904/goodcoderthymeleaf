@@ -20,6 +20,11 @@ public class AccountController {
     public String login(){
         return "account/login";
     }
+    // @PostMapping("login")
+    // public String loginCheck(){
+
+    //     return "";
+    // }
     @GetMapping("register")
     public String register(){
         return "/account/register";
