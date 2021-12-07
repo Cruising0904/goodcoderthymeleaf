@@ -4,12 +4,14 @@ import javax.validation.Valid;
 
 import com.goodcoder.model.Board;
 import com.goodcoder.repository.BoardRepository;
+import com.goodcoder.service.BoardService;
 import com.goodcoder.validator.BoardValidator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,6 +25,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class BoardController {
     @Autowired
     private BoardRepository boardRepository;
+
+    @Autowired
+    private BoardService boardService;
     
     @Autowired
     private BoardValidator boardValidator;
@@ -54,12 +59,15 @@ public class BoardController {
     }
 
     @PostMapping("/form")
-    public String grettingSubmit(@Valid Board board, BindingResult bindingResult){
+    public String postForm(@Valid Board board, BindingResult bindingResult, Authentication authentication){
         boardValidator.validate(board, bindingResult);
         if(bindingResult.hasErrors()){
             return "board/form";
         }
-        boardRepository.save(board);
+        // Authentication a = SecurityContextHolder.getContext().getAuthentication();
+        String username =  authentication.getName();
+        boardService.save(username, board);
+        // boardRepository.save(board);
         return "redirect:/board/list";
     }
 }
